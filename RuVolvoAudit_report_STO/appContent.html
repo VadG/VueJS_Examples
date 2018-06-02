@@ -15,19 +15,20 @@
     <div class="row select_section">
         <transition name="fade" appear>
             <div class="col-md-3" class="form-group">
-                <label for="yearSelect">Год</label>
+                <label>Год</label>
                 <app-select :data='years' arrkey="WaveYear" :val="selectedYear" :multiple='false' @select_changed="updateSelectedValues"></app-select>
             </div>
         </transition>
         <transition name="fade" appear>
             <div class="col-md-3" class="form-group" v-show='isYearSelected'>
-                <label for="citySelect">Город</label>
+                <label>Город</label>
                 <app-select :data='citys' arrkey="City" :val="selectedCity" @select_changed="updateSelectedValues" multiple='true'></app-select>
+                <button type="button" class="btn btn-success select-all-citys" @click = "selectAllCitys">Выбрать все</button>
             </div>
         </transition>
         <transition name="fade" appear>
-            <div class="col-md-3 form-group" v-show='isCitySelected'>
-                <label for="citySelect ">Анкеты</label>
+            <div class="col-md-6 form-group" v-show='isCitySelected'>
+                <label >Анкеты</label>
                 <div class="form-check">
                     <div v-for='(test,index,key) in tests' class="form-group">
                         <transition name="fade" appear>
@@ -38,15 +39,17 @@
                         </transition>
                     </div>
                 </div>
+                 <button type="button" class="btn btn-success btn-load-results" :disabled="allSelected" @click='sendFormData'>Загрузить результаты</button>
             </div>
         </transition>
-        <transition name="fade" appear>
+<!--         <transition name="fade" appear>
             <div class="col-md-3 form-group" v-show='isCitySelected'>
                 <button type="button" class="btn btn-success btn-load-results" :disabled="allSelected" @click='sendFormData'>Загрузить результаты</button>
             </div>
-        </transition>
+        </transition> -->
     </div>
     <div class="row select_section">
+         <transition name="fade">
         <table class="table table-hover" v-show="isResultsLoaded" id="resultsTable">
             <thead>
                 <tr>
@@ -57,14 +60,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(elem,index) in newResults">
+                
+                  <tr v-for="(elem,index) in newResults">
                     <th scope="row">{{index+1}}</th>
                     <td>{{elem.Name}}</td>
                     <td v-for="(currentAnket,index) in elem.Ankets">{{currentAnket.Eff}}</td>
                     <td>{{elem.EffSumm}}</td>
                 </tr>
+                 
+               
             </tbody>
         </table>
+        </transition>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

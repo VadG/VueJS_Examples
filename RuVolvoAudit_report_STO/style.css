@@ -69,13 +69,13 @@
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
 }
- 
+
 
 body{
     overflow-y: scroll;
 }
 .appContainer {
-    min-height: 100vh;
+    min-height: 120vh;
     padding-top: 10vh;
 }
 .sgsBtn{
@@ -87,4 +87,7 @@ body{
 }
 .col-md-3>[multiple]{
     min-height: 200px;
+}
+.select-all-citys{
+    margin: 20px 0px 20px 0px;
 }

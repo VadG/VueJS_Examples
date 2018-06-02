@@ -70,10 +70,10 @@ Vue.component('app-select', {
                 this.allAnkets.forEach(a => {
                     let currentAnket = {};
                     currentAnket.Name = a;
-                    this.results.forEach(bf => {
-                        if (bf.Name == d && bf.ankName == a) {
-                            currentAnket.Eff = bf.Effectiveness;
-                            correntDealer.EffSumm += +bf.Effectiveness;
+                    this.results.forEach(res => {
+                        if (res.Name == d && res.ankName == a) {
+                            currentAnket.Eff = res.Effectiveness;
+                            correntDealer.EffSumm += +res.Effectiveness;
                         }
                     });
                     correntDealer.Ankets.push(currentAnket);
@@ -88,6 +88,10 @@ Vue.component('app-select', {
             return fetch(url,paramObj)
             .then(data => data.json())
             .catch(err => Promise.reject(err)) 
+        },
+        selectAllCitys(){
+          this.selectedCity = [];
+          this.citys.forEach(city=>this.selectedCity.push(city.City));
         },
         updateSelectedValues(newValues,key){
            switch (key){
@@ -134,7 +138,6 @@ Vue.component('app-select', {
                   let form = new FormData();
                   form.append('selectedCity', this.selectedCity.join(','));
               let loadTests = this.getData(`https://api.myjson.com/bins/mlqzi`,
-
                      {credentials: "same-origin",
                       method: "GET" 
                     }
